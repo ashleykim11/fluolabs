@@ -1,0 +1,55 @@
+x = 50
+xSpeed = 1
+col = 255
+recWidth = 500
+strike = 0
+
+def setup():
+    size(800, 800)
+    fullScreen()
+    
+def draw():
+    global x, strike
+    background(0)
+    fill(col, 0, 0)
+    rect(x, height/2, recWidth, 75)
+    x = x + xSpeed  
+    
+    # display x on top
+    fill(255)
+    text("x: " + str(x) + " xSpeed:" + str(xSpeed), width/2, 32)
+    text("strike: " + str(strike), width/2, 48)
+    #check game over
+    if (strike == 3):
+        textSize(60)
+        text("Loser", width/2 - 150, height/2)
+        noLoop()
+    
+    
+    
+    
+    #checking boundary
+    if ( x > width):
+        x = recWidth * -1
+        strike += 1
+    if (x < recWidth * -1):
+        x  = width 
+        strike += 1
+        
+    
+def mousePressed():
+    global xSpeed, col, recWidth
+    
+    # check mouseX
+    if ((mouseX > x) and (mouseX < x + recWidth)):    # horizontal
+        if ((mouseY > height/2) and (mouseY < height/2 + 75)):  # vertical
+            col = random(100, 255)
+            xSpeed = xSpeed * -1
+            if (recWidth > 100):
+                recWidth = recWidth - 20
+            if (xSpeed > 0):
+                xSpeed = xSpeed + 1
+            else:
+                xSpeed = xSpeed - 1
+        
+    print(mouseX)
